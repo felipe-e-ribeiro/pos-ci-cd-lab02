@@ -12,12 +12,12 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
-        
+
       - name: Install Dependencies
         run: pip3 install -r requirement.txt
 
       - name: Executar testes unitários
-        run: pytest tests/unit/ -n auto -m unit --tb=short --junitxml=report-unit.xml
+        run: pytest -m unit --tb=short --junitxml=report-unit.xml
 
       - name: Publicar relatório
         uses: actions/upload-artifact@v4
