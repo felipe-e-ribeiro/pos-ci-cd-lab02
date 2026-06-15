@@ -92,7 +92,7 @@ jobs:
 
       - name: Smoke test — verificar integridade do módulo
         run: |
-          resultado=$(python src/calculadora.py --preco 100 --desconto 10 --aliquota 10)
+          resultado=$(python src/calculadora.py --preco 100 --desconto 10 --aliquota 18)
           if [[ "$resultado" != "106.2" ]]; then
             echo "Smoke test falhou: resultado esperado 106.2, mas obteve $resultado"
             exit 1
