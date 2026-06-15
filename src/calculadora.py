@@ -1,3 +1,5 @@
+import argparse
+
 def calcula_desconto(preco_base: float, desconto: int) -> float:
     if preco_base < 0:
         raise ValueError("Preço base não pode ser negativo")
@@ -21,7 +23,16 @@ def calcula_preco_final(preco_base: float, desconto: int, aliquota_imposto: floa
 
 
 if __name__ == "__main__":
-    preco_base = float(input("Informe o preço base: "))
-    desconto = int(input("Informe o desconto: "))
-    aliquota_imposto = float(input("Informe a aliquota de imposto: "))
-    print(calcula_preco_final(preco_base, desconto, aliquota_imposto))
+    parser = argparse.ArgumentParser(description="A script to process custom double-dash flags.")
+    parser.add_argument("--preco", type=float, help="Preço do produto")
+    parser.add_argument("--desconto", type=int, help="Desconto do produto")
+    parser.add_argument("--aliquota", type=float, help="Alíquota de imposto do produto")
+
+    args = parser.parse_args()
+    if args.preco is None:
+        args.preco = float(input("Informe o preço base: "))
+    if args.desconto is None:
+        args.desconto = int(input("Informe o desconto: "))
+    if args.aliquota is None:
+        args.aliquota = float(input("Informe a aliquota de imposto: "))
+    print(calcula_preco_final(args.preco, args.desconto, args.aliquota))
