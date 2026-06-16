@@ -65,16 +65,14 @@ jobs:
         run: docker build -t minha-calc .
 
       - name: Inicia a aplicação para DAST
-        run: |
-          docker network create dast-net
-          docker run -d --rm --name calc-app --network dast-net minha-calc
+        run: docker run -d --rm --name calc-app -p 8080:8080 minha-calc
 
       - name: Espera o Health
         run: |
           for i in {1..30}; do
-            docker run --rm --network dast-net curlimages/curl \
-              -sf http://calc-app:8080/health && break
-            sleep 1
+            curl -sf http://localhost:8080/health && break
+            sleep 2
+            [ "$i" -eq 30 ] && { echo "app não subiu"; docker logs calc-app; exit 1; }
           done
 
       - name: ZAP Baseline
@@ -82,8 +80,7 @@ jobs:
         with:
           token: ${{ secrets.PAT_TOKEN }}
           docker_name: 'ghcr.io/zaproxy/zaproxy:stable'
-          target: 'http://calc-app:8080/'
-          artifact_name: 'zap-report.html'
+          target: 'http://localhost:8080/'
           cmd_options: '-I'
 
       - name: arquiva relatório
