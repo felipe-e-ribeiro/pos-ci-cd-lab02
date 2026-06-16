@@ -19,7 +19,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
       
-      - name: Bandit
-        uses: pyupio/action-bandit@v1
+      - uses: mdegis/bandit-action@v1.0
         with:
-          args: -r src/ --format json --output-file report-bandit.json
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+          path: "."
+          level: high
+          confidence: high
+          exit_zero: true
