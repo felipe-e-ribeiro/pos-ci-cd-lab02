@@ -1,5 +1,7 @@
 import argparse
 
+AWS_ACCESS_KEY_ID="AKIAIOSFODNN7EXAMPLE"
+
 def calcula_desconto(preco_base: float, desconto: int) -> float:
     if preco_base < 0:
         raise ValueError("Preço base não pode ser negativo")
@@ -36,4 +38,3 @@ if __name__ == "__main__":
     if args.aliquota is None:
         args.aliquota = float(input("Informe a aliquota de imposto: "))
     print(calcula_preco_final(args.preco, args.desconto, args.aliquota))
-AWS_ACCESS_KEY_ID="AKIAIOSFODNN7EXAMPLE"

@@ -11,13 +11,10 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: GitLeaks
-        run: docker run --rm -v $(pwd):/repo zricethezav/gitleaks:latest detect --source /repo --report-path /repo/leaks.json
-
-      - name: Publicar relatório
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: leaks
-          path: leaks.json
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
