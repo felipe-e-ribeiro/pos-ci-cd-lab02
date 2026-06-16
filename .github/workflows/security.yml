@@ -6,7 +6,7 @@ on:
 
   
 jobs:
-  dast-smoke:
+  security-scan:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
