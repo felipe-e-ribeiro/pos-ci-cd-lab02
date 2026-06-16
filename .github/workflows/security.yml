@@ -18,3 +18,8 @@ jobs:
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+      
+      - name: Bandit
+        uses: pyupio/action-bandit@v1
+        with:
+          args: -r src/ --format json --output-file report-bandit.json

@@ -1,9 +1,5 @@
 import argparse
 
-AWS_ACCESS_KEY_ID="AKIAIOSFODNN7EXAMPLE"
-PASSWORD_STRING="wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
-ANTROPIC_API_KEY="sk-1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
-
 def calcula_desconto(preco_base: float, desconto: int) -> float:
     if preco_base < 0:
         raise ValueError("Preço base não pode ser negativo")
