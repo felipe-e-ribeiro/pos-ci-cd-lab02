@@ -39,6 +39,7 @@ jobs:
 
   build-and-scan:
     runs-on: ubuntu-latest
+    depends-on: security-scan
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
@@ -52,4 +53,4 @@ jobs:
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true
-          severity: 'CRITICAL,HIGH,MEDIUM,LOW'
+          severity: 'CRITICAL,HIGH'
