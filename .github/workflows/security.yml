@@ -19,10 +19,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
       
-      - uses: mdegis/bandit-action@v1.0
+      - uses: actions/setup-python@v5
         with:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-          path: "."
-          level: high
-          confidence: high
-          exit_zero: true
+          python-version: "3.12"
+          cache: 'pip'
+          cache-dependency-path: requirements.txt
+          
+      - name: Bandit
+        run: bandit -r src/ -f json -o report_bandit.json
+        
+      - name: Publicar relatório de segurança
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: security-report
+          path: report_bandit.json
