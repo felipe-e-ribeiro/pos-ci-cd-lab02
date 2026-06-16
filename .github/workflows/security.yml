@@ -39,7 +39,7 @@ jobs:
 
   build-and-scan:
     runs-on: ubuntu-latest
-    depends-on: security-scan
+    needs: security-scan
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
