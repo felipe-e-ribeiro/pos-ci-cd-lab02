@@ -22,13 +22,7 @@ jobs:
         run: pip3 install -r requirements.txt
 
       - name: Run Ruff linter
-        run: ruff check src/ --format json --output report-ruff.json
-
-      - name: Publicar relatório de qualidade
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: quality-report
+        run: ruff check src/ test/
 
   pytest-cov:
     runs-on: ubuntu-latest
