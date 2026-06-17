@@ -51,22 +51,27 @@ def test_entradas_invalidas_levantam_erro(preco, desconto, aliquota):
 
 
 # -- Teste Flask
-@pytest.mark.parametrize("querystring,esperado", [
-    ("preco=100&desconto=10&aliquota=5", 200),
-    ("preco=100&desconto=10", 400),          # falta param
-    ("preco=abc&desconto=10&aliquota=5", 400),  # não-numérico
-    ("preco=100&desconto=150&aliquota=5", 400), # regra de negócio
-    ("preco=-50&desconto=10&aliquota=5", 400),  # preço negativo
-])
+@pytest.mark.parametrize(
+    "querystring,esperado",
+    [
+        ("preco=100&desconto=10&aliquota=5", 200),
+        ("preco=100&desconto=10", 400),  # falta param
+        ("preco=abc&desconto=10&aliquota=5", 400),  # não-numérico
+        ("preco=100&desconto=150&aliquota=5", 400),  # regra de negócio
+        ("preco=-50&desconto=10&aliquota=5", 400),  # preço negativo
+    ],
+)
 def test_calc_status(client, querystring, esperado):
     resp = client.get(f"/calc?{querystring}")
     assert resp.status_code == esperado
+
 
 @pytest.fixture
 def client():
     flask_app.config.update({"TESTING": True})
     with flask_app.test_client() as client:
         yield client
+
 
 def test_calc_health(client):
     resp = client.get("/health")
